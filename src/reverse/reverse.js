@@ -22,7 +22,6 @@ function reverseIterative(list)
   return the reversedList
 */
 function reverseIterative(list) {
-    if(!list.head) return null;
 
     let reversedList = new LinkedList();
     let node = list.head;
@@ -44,7 +43,14 @@ function reverseIterative(list) {
  * A linked list in reverse order
  */
 function reverseRecursive(list) {
-
-}
-
+    if (list.length <= 1) {
+      return list;
+    }
+  
+    const head = list.head.value;
+    list.remove((node, index) => index === 0);
+    const reversedList = reverseRecursive(list);
+    reversedList.insert(head);
+    return reversedList;
+  }
 module.exports = { reverseIterative, reverseRecursive };
