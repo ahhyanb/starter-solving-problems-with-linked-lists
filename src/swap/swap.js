@@ -34,7 +34,40 @@ function swap
  return the list
 */
 function swap(list, x, y) {
+  if (!list.head || x === y) return list; // If list is empty or same node, return as is
 
+  let x_prev = null, y_prev = null;
+  let current = list.head;
+
+  // Find previous nodes of x and y
+  while (current.next) {
+      if (current.next === x) x_prev = current;
+      if (current.next === y) y_prev = current;
+      current = current.next;
+  }
+
+  let x_next = x.next; // Store next pointer of x
+
+  // Swap next pointers of x and y
+  x.next = y.next;
+  y.next = x_next;
+
+  // If x is not the head, update x_prev.next
+  if (x_prev) {
+      x_prev.next = y;
+  } else {
+      list.head = y; // If x was head, update head to y
+  }
+
+  // If y is not the head, update y_prev.next
+  if (y_prev) {
+      y_prev.next = x;
+  } else {
+      list.head = x; // If y was head, update head to x
+  }
+
+  return list;
 }
+
 
 module.exports = swap;
